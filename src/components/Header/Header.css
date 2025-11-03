@@ -1,0 +1,57 @@
+.header-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  /* TĂNG PADDING ĐỂ TẠO KHÔNG GIAN TRỐNG */
+  padding: 50px 80px; 
+  
+  color: white;
+  box-sizing: border-box;
+}
+
+.logo-img{
+    height: 40px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.header-actions .icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.buy-tickets-btn {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  padding: 12px 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+}

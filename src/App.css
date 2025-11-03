@@ -1,0 +1,6 @@
+/* Các style chung cho toàn bộ ứng dụng */
+.App {
+  font-family: 'Montserrat', sans-serif; /* Bạn có thể import font này từ Google Fonts */
+  background-color: #111;
+  color: #333;
+}

@@ -1,0 +1,47 @@
+.sponsors-section {
+  background-color: #f7f7f7;
+  padding: 80px 0; /* Giảm padding trái/phải để slider chiếm toàn bộ chiều rộng */
+}
+
+.sponsors-slider-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 
+  React-slick bọc mỗi slide trong một div có class .slick-slide.
+  Chúng ta cần style cho div bên trong nó.
+*/
+.slick-slide > div {
+  padding: 0 10px; /* Tạo khoảng cách nhỏ giữa các ảnh */
+}
+
+.sponsor-item {
+  display: flex !important; /* Ghi đè style của thư viện */
+  align-items: center;
+  justify-content: center;
+  height: 120px; /* Đặt chiều cao cố định cho các hộp */
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  background-color: white; /* Thêm nền trắng cho mỗi item */
+}
+
+.sponsor-item img {
+  max-width: 150px;
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.sponsor-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Tùy chỉnh nhỏ để các slide được căn giữa theo chiều dọc nếu cần */
+.slick-track {
+  display: flex;
+  align-items: center;
+}

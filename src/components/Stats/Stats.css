@@ -1,0 +1,33 @@
+.stats-section {
+  background-color: #fff;
+  padding: 100px 50px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around; /* Phân bố đều các item */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Khoảng cách giữa số và chữ */
+}
+
+.stat-number {
+  font-size: 120px; /* Kích thước số rất lớn */
+  font-weight: 800; /* Rất đậm */
+  color: #1a1a1a;
+  line-height: 1; /* Giảm chiều cao dòng để căn chỉnh tốt hơn */
+}
+
+.stat-description {
+  font-size: 18px;
+  font-weight: 600; /* Hơi đậm */
+  color: #555; /* Màu xám đậm */
+  line-height: 1.4;
+  margin: 0;
+}

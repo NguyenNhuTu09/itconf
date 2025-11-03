@@ -1,0 +1,81 @@
+.topics-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Tạo layout 2 cột bằng nhau */
+  height: 650px; /* Chiều cao cố định cho cả section */
+}
+
+.topic-column {
+  position: relative; /* Cần thiết để định vị info-box */
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  
+  display: flex;
+}
+
+/* Căn chỉnh vị trí cho từng hộp */
+.topic-column:nth-child(1) { /* Cột đầu tiên (trái) */
+  align-items: flex-end; /* Đẩy hộp xuống dưới */
+}
+.topic-column:nth-child(2) { /* Cột thứ hai (phải) */
+  align-items: flex-start; /* Đẩy hộp lên trên */
+}
+
+.info-box {
+  position: relative; /* Để định vị mũi tên bên trong */
+  padding: 30px;
+  width: 320px;
+  transition: transform 0.3s ease-out;
+}
+
+.topic-column:hover .info-box {
+  transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+}
+
+/* --- Styling cho hộp màu xanh --- */
+.blue-box {
+  background-color: #3a78f4;
+  color: white;
+}
+.blue-box .info-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+.blue-box .info-arrow {
+  color: white;
+}
+
+/* --- Styling cho hộp màu trắng --- */
+.white-box {
+  background-color: white;
+  color: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Thêm bóng mờ */
+}
+.white-box .info-subtitle {
+  color: #777;
+}
+.white-box .info-arrow {
+  color: #3a78f4;
+}
+
+/* --- Styling chung cho nội dung trong hộp --- */
+.info-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 10px 0;
+}
+
+.info-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.info-arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+}

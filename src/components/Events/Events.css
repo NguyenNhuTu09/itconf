@@ -1,0 +1,84 @@
+.events-section {
+  padding: 0 50px 120px 50px; /* Thêm padding dưới để tạo khoảng trống */
+  background-color: #fff;
+}
+
+.events-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Khoảng cách giữa các thẻ */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.event-card {
+  position: relative; /* Cần thiết để định vị lớp phủ và nội dung */
+  height: 550px; /* Chiều cao cố định cho tất cả các thẻ */
+  flex: 1; /* Mỗi thẻ chiếm không gian bằng nhau */
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 30px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Đẩy nội dung xuống dưới cùng */
+  
+  overflow: hidden; /* Ẩn các phần tử bị tràn ra ngoài */
+  transition: transform 0.4s ease; /* Hiệu ứng phóng to khi hover */
+}
+
+.event-card:hover {
+  transform: translateY(-10px); /* Nhấc thẻ lên một chút khi hover */
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Lớp phủ gradient để phần dưới tối hơn, giúp chữ nổi bật */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung nằm trên lớp phủ */
+}
+
+.card-content h3 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  transition: transform 0.4s ease;
+}
+
+.read-more-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  
+  /* --- Hiệu ứng Hover --- */
+  opacity: 0; /* Mặc định ẩn đi */
+  transform: translateY(20px); /* Đẩy xuống dưới */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Khi hover vào thẻ cha .event-card */
+.event-card:hover .read-more-link {
+  opacity: 1; /* Hiện ra */
+  transform: translateY(0); /* Di chuyển về vị trí cũ */
+}
+
+/* Đẩy tiêu đề lên một chút để nhường chỗ cho link */
+.event-card:hover h3 {
+  transform: translateY(-10px);
+}
