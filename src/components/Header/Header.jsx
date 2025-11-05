@@ -35,11 +35,14 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom'; 
 import { FiSearch, FiShoppingCart, FiMenu, FiX } from 'react-icons/fi'; 
+import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import './Header.css';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,13 +77,42 @@ const Header = () => {
 
       <div className="header-actions">
         <FiSearch className="icon" />
-        <FiShoppingCart className="icon" />
+        <div className="cart-icon-wrapper">
+          <FiShoppingCart className="icon" onClick={() => setShowCart(true)} />
+          {cartItems.length > 0 && (
+            <span className="cart-count">{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</span>
+          )}
+        </div>
         <button className="buy-tickets-btn">BUY TICKETS</button>
       </div>
 
       <div className="mobile-menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         {isMenuOpen ? <FiX /> : <FiMenu />}
       </div>
+
+      {showCart && (
+        <ShoppingCart
+          cartItems={cartItems}
+          onClose={() => setShowCart(false)}
+          onQuantityChange={(title, change) => {
+            setCartItems(items =>
+              items.map(item =>
+                item.title === title
+                  ? { ...item, quantity: Math.max(0, item.quantity + change) }
+                  : item
+              ).filter(item => item.quantity > 0)
+            );
+          }}
+          onRemoveClick={(item) => {
+            setCartItems(items =>
+              items.filter(i => i.title !== item.title)
+            );
+          }}
+          calculateTotal={() =>
+            cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+          }
+        />
+      )}
 
       <div className={`mobile-nav ${isMenuOpen ? 'open' : ''}`}>
         <NavLink to="/" onClick={() => setIsMenuOpen(false)}>HOME</NavLink>

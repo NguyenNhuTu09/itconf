@@ -1,6 +1,8 @@
 import React from 'react';
 import HomePage from './Pages/HomePage/HomePage';
 import EventsPage from './Pages/EventsPage/EventPage';
+import DetailsEventsPage from './Pages/DetailsEventsPage/DetailsEventsPage';
+import PaymentEventsPage from './Pages/PaymentEventsPage/PaymentEventsPage';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { Routes,Route } from 'react-router-dom';
@@ -14,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/events" element={<EventsPage />} />
-          {/* Các route cho các trang khác sẽ được thêm vào đây */}
+          <Route path="/events/:id" element={<DetailsEventsPage />} />
+          <Route path="/payment" element={<PaymentEventsPage />} />
         </Routes>
       </main>
       <Footer />
