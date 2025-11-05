@@ -40,7 +40,6 @@ const Speakers = () => {
     <section className="speakers-section">
       <div className="speakers-overlay"></div>
 
-      {/* 3. CẬP NHẬT STYLE CỦA ẢNH PREVIEW */}
       <div 
         className="speaker-image-preview"
         style={{
@@ -51,7 +50,6 @@ const Speakers = () => {
       ></div>
 
       <div className="marquee-container">
-        {/* ... marquee giữ nguyên ... */}
         <div className="marquee-content">
           {[...Array(8)].map((_, i) => (
             <React.Fragment key={i}>
@@ -67,7 +65,6 @@ const Speakers = () => {
           <div 
             className={`speaker-item ${hoveredIndex === index ? 'active' : ''}`}
             key={index}
-            // 4. SỬ DỤNG CÁC HÀM XỬ LÝ MỚI
             onMouseEnter={(e) => handleMouseEnter(e, index)}
             onMouseLeave={handleMouseLeave}
           >

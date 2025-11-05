@@ -1,7 +1,6 @@
 import React from 'react';
 import './Stats.css';
 
-// Dữ liệu cho các con số thống kê
 const statsData = [
   {
     number: '20',
@@ -28,7 +27,6 @@ const Stats = () => {
         {statsData.map((stat, index) => (
           <div className="stat-item" key={index}>
             <span className="stat-number">{stat.number}</span>
-            {/* dangerouslySetInnerHTML để render thẻ <br/> */}
             <p 
               className="stat-description"
               dangerouslySetInnerHTML={{ __html: stat.description }}

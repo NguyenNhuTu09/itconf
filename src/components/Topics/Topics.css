@@ -1,63 +1,50 @@
 .topics-section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Tạo layout 2 cột bằng nhau */
-  height: 650px; /* Chiều cao cố định cho cả section */
+  grid-template-columns: repeat(2, 1fr);
+  height: 650px;
 }
 
 .topic-column {
-  position: relative; /* Cần thiết để định vị info-box */
+  position: relative;
   background-size: cover;
   background-position: center;
   padding: 40px;
-  
   display: flex;
 }
 
-/* Căn chỉnh vị trí cho từng hộp */
-.topic-column:nth-child(1) { /* Cột đầu tiên (trái) */
-  align-items: flex-end; /* Đẩy hộp xuống dưới */
+.topic-column:nth-child(1) {
+  align-items: flex-end;
 }
-.topic-column:nth-child(2) { /* Cột thứ hai (phải) */
-  align-items: flex-start; /* Đẩy hộp lên trên */
+.topic-column:nth-child(2) {
+  align-items: flex-start;
 }
 
 .info-box {
-  position: relative; /* Để định vị mũi tên bên trong */
+  position: relative;
   padding: 30px;
   width: 320px;
   transition: transform 0.3s ease-out;
 }
 
 .topic-column:hover .info-box {
-  transform: scale(1.05); /* Hiệu ứng phóng to nhẹ khi hover */
+  transform: scale(1.05);
 }
 
-/* --- Styling cho hộp màu xanh --- */
 .blue-box {
   background-color: #3a78f4;
   color: white;
 }
-.blue-box .info-subtitle {
-  color: rgba(255, 255, 255, 0.8);
-}
-.blue-box .info-arrow {
-  color: white;
-}
+.blue-box .info-subtitle { color: rgba(255, 255, 255, 0.8); }
+.blue-box .info-arrow { color: white; }
 
-/* --- Styling cho hộp màu trắng --- */
 .white-box {
   background-color: white;
   color: #1a1a1a;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Thêm bóng mờ */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-.white-box .info-subtitle {
-  color: #777;
-}
-.white-box .info-arrow {
-  color: #3a78f4;
-}
+.white-box .info-subtitle { color: #777; }
+.white-box .info-arrow { color: #3a78f4; }
 
-/* --- Styling chung cho nội dung trong hộp --- */
 .info-subtitle {
   font-size: 12px;
   font-weight: 700;
@@ -78,4 +65,43 @@
   top: 20px;
   right: 20px;
   font-size: 24px;
+}
+
+
+/* --- PHẦN RESPONSIVE --- */
+
+/* Dành cho Tablet chiều dọc và Mobile (nhỏ hơn 768px) */
+@media (max-width: 768px) {
+  .topics-section {
+    grid-template-columns: 1fr; /* Chuyển sang 1 cột */
+    height: auto; /* Cho phép chiều cao tự động co giãn */
+  }
+
+  .topic-column {
+    height: 500px; /* Đặt chiều cao cố định cho mỗi cột */
+    padding: 20px;
+    align-items: flex-end; /* Đẩy tất cả các hộp xuống dưới cho đồng nhất */
+  }
+
+  /* Reset lại vị trí cho cột thứ hai */
+  .topic-column:nth-child(2) {
+    align-items: flex-end; 
+  }
+
+  .info-box {
+    width: 100%; /* Cho hộp chiếm toàn bộ chiều rộng */
+    max-width: 320px; /* Nhưng không rộng hơn 320px */
+    margin: 0 auto; /* Căn giữa hộp */
+  }
+}
+
+/* Dành cho Mobile nhỏ (nhỏ hơn 480px) */
+@media (max-width: 480px) {
+  .topic-column {
+    height: 400px; /* Giảm chiều cao cột trên mobile nhỏ hơn */
+  }
+
+  .info-title {
+    font-size: 24px; /* Giảm kích thước font */
+  }
 }

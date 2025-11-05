@@ -1,8 +1,7 @@
 import React from 'react';
-import { FiArrowUpRight } from 'react-icons/fi'; // Icon cho nút "read more"
+import { FiArrowUpRight } from 'react-icons/fi'; 
 import './Events.css';
 
-// Dữ liệu cho các thẻ, bao gồm tiêu đề và URL hình ảnh
 const eventData = [
   {
     title: 'Main Location',

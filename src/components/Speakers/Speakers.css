@@ -20,17 +20,15 @@
   z-index: 1;
 }
 
-/* --- THAY ĐỔI QUAN TRỌNG NHẤT CHO ẢNH PREVIEW --- */
 .speaker-image-preview {
-  position: fixed; /* Chuyển sang fixed để định vị theo cửa sổ trình duyệt */
-  right: 12%; /* Vị trí theo chiều ngang */
+  position: fixed;
+  right: 12%;
   width: 310px;
   height: 360px;
   background-size: cover;
   background-position: center;
   z-index: 3;
   opacity: 0;
-  /* Chuyển đổi mượt mà cho cả vị trí và độ mờ */
   transition: opacity 0.4s ease, top 0.3s ease-out;
   pointer-events: none;
 }
@@ -41,7 +39,6 @@
   z-index: 2;
 }
 
-/* ... Các style khác giữ nguyên như trước ... */
 .marquee-container { padding-bottom: 60px; }
 .marquee-content { display: flex; align-items: center; animation: scroll 30s linear infinite; width: fit-content; }
 .marquee-content span { font-size: 80px; font-weight: 800; text-transform: uppercase; white-space: nowrap; }
@@ -61,4 +58,64 @@
 .speaker-item.active .speaker-info h3,
 .speaker-item.active .read-more-speaker {
   color: #3a78f4;
+}
+
+
+
+/* Dành cho Tablet (nhỏ hơn 992px) */
+@media (max-width: 992px) {
+  /* Ẩn ảnh preview vì không đủ không gian */
+  .speaker-image-preview {
+    display: none;
+  }
+}
+
+/* Dành cho Mobile (nhỏ hơn 768px) */
+@media (max-width: 768px) {
+  .speakers-section {
+    padding: 60px 0;
+  }
+  
+  .marquee-container {
+    padding-bottom: 40px;
+  }
+  .marquee-content span {
+    font-size: 40px; /* Giảm kích thước chữ marquee */
+  }
+  .marquee-icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 20px;
+  }
+  
+  .speaker-list-container {
+    padding: 0 20px;
+  }
+  
+  .speaker-item {
+    flex-wrap: wrap; 
+    padding: 20px 0;
+  }
+  
+  .speaker-info {
+    /* Chuyển sang bố cục dọc */
+    flex-direction: column;
+    align-items: flex-start; /* Căn lề trái */
+    gap: 5px;
+  }
+  
+  .speaker-info h3 {
+    font-size: 24px;
+  }
+  
+  .speaker-info .speaker-title {
+    font-size: 12px;
+  }
+
+  .read-more-speaker {
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    margin-top: 15px;
+    justify-content: flex-end; /* Đẩy về bên phải */
+    font-size: 13px;
+  }
 }

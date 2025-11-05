@@ -1,57 +1,107 @@
 .header-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 1000; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  /* TĂNG PADDING ĐỂ TẠO KHÔNG GIAN TRỐNG */
-  padding: 50px 80px; 
-  
+  padding: 30px 60px;
   color: white;
   box-sizing: border-box;
+  transition: background-color 0.4s ease, padding 0.4s ease; /* 2. Thêm transition */
 }
-
 .logo-img{
-    height: 40px;
+  height: 60px;
 }
 
-.nav-menu {
-  display: flex;
-  gap: 35px;
+.header-container.scrolled {
+  background-color: white;
+  color: #1a1a1a; 
+  padding: 15px 60px; 
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-.nav-menu a {
+.header-container.scrolled .logo,
+.header-container.scrolled .nav-menu a,
+.header-container.scrolled .icon {
+  color: #1a1a1a;
+}
+.header-container.scrolled .buy-tickets-btn {
+  color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+.header-container.scrolled .buy-tickets-btn:hover {
+  background-color: #1a1a1a;
   color: white;
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  font-size: 13px;
-  text-transform: uppercase;
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 25px;
+/* ... các style khác giữ nguyên ... */
+.logo { font-size: 28px; font-weight: 700; text-decoration: none; color: white; }
+.nav-menu { display: flex; gap: 35px; }
+.nav-menu a { color: white; text-decoration: none; font-weight: 600; letter-spacing: 1.5px; font-size: 13px; text-transform: uppercase; }
+.header-actions { display: flex; align-items: center; gap: 25px; }
+.header-actions .icon { font-size: 20px; cursor: pointer; }
+.buy-tickets-btn { background: transparent; border: 2px solid white; color: white; padding: 12px 25px; cursor: pointer; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+.nav-menu a.active-link {
+  color: #3a78f4;
+}
+.header-container.scrolled .nav-menu a.active-link {
+  color: #3a78f4; /* Vẫn giữ màu xanh khi nền trắng */
 }
 
-.header-actions .icon {
-  font-size: 20px;
+
+.mobile-menu-icon {
+  display: none; /* Mặc định ẩn trên desktop */
+  font-size: 28px;
   cursor: pointer;
 }
+.mobile-nav {
+  display: none; /* Mặc định ẩn */
+}
 
-.buy-tickets-btn {
-  background-color: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  color: white;
-  padding: 12px 25px;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1px;
+@media (max-width: 992px) {
+  .desktop-nav,
+  .header-actions {
+    display: none; /* Ẩn menu desktop và các nút actions */
+  }
+
+  .mobile-menu-icon {
+    display: block; /* Hiện icon hamburger */
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Nằm ngay dưới header */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    /* Hiệu ứng trượt xuống */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+  }
+  .mobile-nav.open {
+    max-height: 500px; /* Chiều cao đủ lớn để chứa các link */
+  }
+  .mobile-nav a {
+    color: #1a1a1a; /* Chữ luôn màu đen */
+    padding: 20px 30px;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container,
+  .header-container.scrolled {
+    padding: 15px 20px;
+  }
+  
 }

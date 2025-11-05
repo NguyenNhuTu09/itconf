@@ -1,16 +1,9 @@
 import React from 'react';
+import HomePage from './Pages/HomePage/HomePage';
+import EventsPage from './Pages/EventsPage/EventPage';
 import Header from './components/Header/Header';
-import Hero from './components/Hero/Hero';
-import Sponsors from './components/Sponsors/Sponsors';
-import Offer from './components/Offer/Offer'; 
-import Events from './components/Events/Events';
-import Stats from './components/Stats/Stats';
-import Speakers from './components/Speakers/Speakers';
-import MainEvents from './components/MainEvents/MainEvents';
-import Topics from './components/Topics/Topics';
-import Tickets from './components/Tickets/Tickets';
-import Testimonials from './components/Testimonials/Testimonials';
 import Footer from './components/Footer/Footer';
+import { Routes,Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -18,18 +11,12 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <Hero />
-        <Sponsors />
-        <Offer />
-        <Events />
-        <Stats />
-        <Speakers />
-        <MainEvents />\
-        <Topics />
-        <Tickets />
-        <Testimonials />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/events" element={<EventsPage />} />
+          {/* Các route cho các trang khác sẽ được thêm vào đây */}
+        </Routes>
       </main>
-      {/* Bạn có thể thêm Footer ở đây nếu cần */}
       <Footer />
     </div>
   );

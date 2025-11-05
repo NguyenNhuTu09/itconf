@@ -14,22 +14,8 @@
   justify-content: space-between;
   align-items: center;
 }
-.tickets-header h2 {
-  font-size: 32px;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-}
-.view-all-tickets-btn {
-  background: transparent;
-  border: 1px solid #e0e0e0;
-  padding: 12px 25px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
+.tickets-header h2 { font-size: 32px; font-weight: 800; text-transform: uppercase; margin: 0; }
+.view-all-tickets-btn { background: transparent; border: 1px solid #e0e0e0; padding: 12px 25px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
 
 /* --- Sub-header Styling --- */
 .tickets-subheader {
@@ -37,32 +23,16 @@
   align-items: center;
   margin-top: 20px;
 }
-.subheader-tag {
-  color: #3a78f4;
-  font-weight: 600;
-  font-size: 14px;
-  margin-right: 20px;
-}
-.tickets-subheader::after {
-  content: '';
-  flex-grow: 1;
-  height: 1px;
-  background-color: #e0e0e0;
-}
-
-.section-description {
-  color: #777;
-  max-width: 600px; /* Giới hạn chiều rộng của đoạn văn */
-  margin: 20px 0 60px 0;
-  line-height: 1.6;
-}
+.subheader-tag { color: #3a78f4; font-weight: 600; font-size: 14px; margin-right: 20px; }
+.tickets-subheader::after { content: ''; flex-grow: 1; height: 1px; background-color: #e0e0e0; }
+.section-description { color: #777; max-width: 600px; margin: 20px 0 60px 0; line-height: 1.6; }
 
 /* --- Pricing Grid & Card Styling --- */
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  align-items: center; /* Để các thẻ căn giữa nếu chiều cao khác nhau */
+  align-items: center;
 }
 
 .pricing-card {
@@ -73,12 +43,11 @@
   gap: 20px;
 }
 
-/* Style cho thẻ nổi bật */
 .featured-card {
   background-color: #3a78f4;
   color: white;
   border: none;
-  transform: scale(1.05); /* Làm cho thẻ to hơn một chút */
+  transform: scale(1.05);
   box-shadow: 0 15px 40px rgba(58, 120, 244, 0.3);
 }
 
@@ -91,33 +60,19 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.featured-card .plan-header {
-  color: rgba(255, 255, 255, 0.8);
-}
+.featured-card .plan-header { color: rgba(255, 255, 255, 0.8); }
 
-.price {
-  font-size: 70px;
-  font-weight: 700;
-  color: #3a78f4;
-  margin: 10px 0;
-}
-.featured-card .price {
-  color: white;
-}
+.price { font-size: 70px; font-weight: 700; color: #3a78f4; margin: 10px 0; }
+.featured-card .price { color: white; }
 
-.plan-title {
-  font-size: 24px;
-  font-weight: 700;
-}
+.plan-title { font-size: 24px; font-weight: 700; }
 
 .plan-description {
   color: #777;
   line-height: 1.6;
-  flex-grow: 1; /* Đẩy nút "buy" xuống dưới cùng */
+  flex-grow: 1;
 }
-.featured-card .plan-description {
-  color: rgba(255, 255, 255, 0.8);
-}
+.featured-card .plan-description { color: rgba(255, 255, 255, 0.8); }
 
 .buy-ticket-link {
   color: #3a78f4;
@@ -127,6 +82,45 @@
   align-items: center;
   gap: 8px;
 }
-.featured-card .buy-ticket-link {
-  color: white;
+.featured-card .buy-ticket-link { color: white; }
+
+
+/* --- PHẦN RESPONSIVE --- */
+
+/* Dành cho Tablet (nhỏ hơn 992px) */
+@media (max-width: 992px) {
+  .pricing-grid {
+    grid-template-columns: 1fr; /* Chuyển thành 1 cột */
+    max-width: 500px; /* Giới hạn chiều rộng để không quá to */
+    margin: 0 auto;
+  }
+
+  .featured-card {
+    transform: scale(1); /* Reset lại hiệu ứng phóng to */
+  }
+}
+
+/* Dành cho Mobile (nhỏ hơn 768px) */
+@media (max-width: 768px) {
+  .tickets-section {
+    padding: 80px 20px;
+  }
+
+  .tickets-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .section-description {
+    max-width: 100%;
+  }
+
+  .price {
+    font-size: 50px; /* Giảm kích thước giá */
+  }
+
+  .plan-title {
+    font-size: 20px;
+  }
 }

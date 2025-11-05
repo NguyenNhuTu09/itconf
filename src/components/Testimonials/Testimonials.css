@@ -5,7 +5,7 @@
   background-image: url('https://res.cloudinary.com/dozs7ggs4/image/upload/v1762175971/section-bg1_j02al9.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Tạo hiệu ứng parallax */
+  background-attachment: fixed;
 }
 
 .testimonials-overlay {
@@ -14,7 +14,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Lớp phủ tối */
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
 
@@ -32,103 +32,70 @@
   max-width: 700px;
 }
 
-/* --- Header Styling --- */
-.testimonials-header h2 {
-  font-size: 32px;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin: 0;
-}
+.testimonials-header h2 { font-size: 32px; font-weight: 800; text-transform: uppercase; margin: 0; }
+.subheader-line { display: flex; align-items: center; margin-top: 15px; }
+.subheader-line span { font-size: 14px; font-weight: 600; margin-right: 20px; }
+.subheader-line::after { content: ''; flex-grow: 1; height: 1px; background-color: rgba(255, 255, 255, 0.3); }
 
-.subheader-line {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-}
-.subheader-line span {
-  font-size: 14px;
-  font-weight: 600;
-  margin-right: 20px;
-}
-.subheader-line::after {
-  content: '';
-  flex-grow: 1;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* --- Slider Styling --- */
 .slider-content {
   margin-top: 50px;
   position: relative;
-  min-height: 400px; /* Đảm bảo chiều cao không bị thay đổi khi chuyển slide */
+  min-height: 400px;
 }
 
 .testimonial-item {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0; /* Mặc định ẩn */
+  opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
-.testimonial-item.active {
-  opacity: 1; /* Hiển thị slide đang active */
-}
+.testimonial-item.active { opacity: 1; }
+.quote-title { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+.quote-icon { background-color: #3a78f4; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.quote-title h3 { font-size: 18px; font-weight: 700; text-transform: uppercase; margin: 0; }
+.quote-text { font-size: 24px; font-weight: 600; line-height: 1.6; margin: 0 0 30px 0; }
+.author-info .author-name { font-size: 20px; font-weight: 700; margin: 0 0 5px 0; }
+.author-info .author-role { font-size: 13px; font-weight: 500; text-transform: uppercase; color: #ccc; margin: 0; }
 
-.quote-title {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-.quote-icon {
-  background-color: #3a78f4;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.quote-title h3 {
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.quote-text {
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.6;
-  margin: 0 0 30px 0;
-}
-
-.author-info .author-name {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 5px 0;
-}
-.author-info .author-role {
-  font-size: 13px;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: #ccc;
-  margin: 0;
-}
-
-/* --- Navigation Styling --- */
 .slider-nav {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.slider-nav button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  background-color: transparent;
-  color: white;
-  cursor: pointer;
+.slider-nav button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.5); background-color: transparent; color: white; cursor: pointer; }
+
+
+/* --- PHẦN RESPONSIVE --- */
+
+/* Dành cho Tablet (nhỏ hơn 992px) */
+@media (max-width: 992px) {
+  .testimonials-container {
+    flex-direction: column; /* Xếp chồng nội dung và nút nav */
+    gap: 40px;
+  }
+
+  .testimonials-content {
+    max-width: 100%; /* Cho phép nội dung chiếm toàn bộ chiều rộng */
+  }
+
+  .slider-nav {
+    flex-direction: row; /* Chuyển nút nav thành hàng ngang */
+  }
+}
+
+/* Dành cho Mobile (nhỏ hơn 768px) */
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 80px 20px;
+    background-attachment: scroll; /* Vô hiệu hóa hiệu ứng parallax trên mobile */
+  }
+  
+  .quote-text {
+    font-size: 20px; /* Giảm kích thước font */
+  }
+
+  .slider-content {
+    min-height: 450px; /* Tăng chiều cao tối thiểu để chứa đủ nội dung */
+  }
 }

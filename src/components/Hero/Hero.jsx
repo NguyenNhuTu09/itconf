@@ -39,7 +39,6 @@ const Hero = () => {
 
       <div className="contact-info">
         <p className="phone">+1 800 123 456 789</p>
-        {/* THÊM EMAIL VÀO ĐÂY */}
         <p className="email">ITCONF@MAIL.COM</p>
       </div>
     </section>

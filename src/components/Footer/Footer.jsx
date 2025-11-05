@@ -14,7 +14,6 @@ const Footer = () => {
     <footer className="footer-section">
       <div className="footer-container">
         <div className="footer-top">
-          {/* CỘT 1: THÔNG TIN LIÊN HỆ (ĐÃ CẬP NHẬT) */}
           <div className="footer-column contact-info-main">
             <h3>ITCONF@MAIL.COM</h3>
             <p className="address">
@@ -30,7 +29,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Cột 2: About Links */}
           <div className="footer-column about-links">
             <h4>ABOUT CONFERENCE</h4>
             <div className="links-grid">
@@ -38,7 +36,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Cột 3: Subscribe */}
           <div className="footer-column subscribe">
             <h4>SUBSCRIBE</h4>
             <div className="subscribe-input">
@@ -50,7 +47,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* --- Phần Copyright (Giữ nguyên) --- */}
       <div className="footer-bottom">
         <div className="footer-container bottom-content">
           <div className="copyright-info">

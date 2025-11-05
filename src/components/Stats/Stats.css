@@ -1,12 +1,12 @@
 .stats-section {
   background-color: #fff;
-  padding: 100px 50px;
+  padding: 90px 50px; /* Giảm padding một chút */
 }
 
 .stats-container {
   display: flex;
-  justify-content: space-around; /* Phân bố đều các item */
-  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: space-around;
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -14,20 +14,58 @@
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 20px; /* Khoảng cách giữa số và chữ */
+  gap: 20px;
 }
 
 .stat-number {
-  font-size: 120px; /* Kích thước số rất lớn */
-  font-weight: 800; /* Rất đậm */
+  font-size: 120px;
+  font-weight: 800;
   color: #1a1a1a;
-  line-height: 1; /* Giảm chiều cao dòng để căn chỉnh tốt hơn */
+  line-height: 1;
 }
 
 .stat-description {
   font-size: 18px;
-  font-weight: 600; /* Hơi đậm */
-  color: #555; /* Màu xám đậm */
+  font-weight: 600;
+  color: #555;
   line-height: 1.4;
   margin: 0;
+}
+
+
+/* --- PHẦN RESPONSIVE --- */
+
+/* Dành cho Tablet (nhỏ hơn 992px) */
+@media (max-width: 992px) {
+  .stats-container {
+    /* Chuyển sang bố cục lưới 2x2 */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 20px; /* Tăng khoảng cách hàng, giảm khoảng cách cột */
+  }
+
+  .stat-item {
+    justify-content: center; /* Căn giữa mỗi item trong ô grid của nó */
+  }
+}
+
+/* Dành cho Mobile (nhỏ hơn 576px) */
+@media (max-width: 576px) {
+  .stats-section {
+    padding: 60px 20px;
+  }
+
+  .stats-container {
+    /* Chuyển sang bố cục 1 cột */
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .stat-number {
+    font-size: 80px; /* Giảm kích thước số */
+  }
+
+  .stat-description {
+    font-size: 16px; /* Giảm kích thước chữ */
+  }
 }

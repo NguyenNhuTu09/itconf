@@ -2,7 +2,6 @@ import React from 'react';
 import { FiCalendar, FiMapPin, FiArrowLeft, FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
 import './MainEvents.css';
 
-// Dữ liệu chi tiết cho mỗi sự kiện
 const mainEventsData = [
   {
     title: 'AFTERPARTY',
@@ -54,7 +53,6 @@ const MainEvents = () => {
           </div>
         </div>
 
-        {/* --- Grid chứa các thẻ sự kiện --- */}
         <div className="events-grid-container">
           {mainEventsData.map((event, index) => (
             <div className="event-card-item" key={index}>
@@ -79,7 +77,6 @@ const MainEvents = () => {
           ))}
         </div>
 
-        {/* --- Nút View All --- */}
         <div className="view-all-container">
           <button className="view-all-btn">
             <FiArrowUpRight /> view all events
