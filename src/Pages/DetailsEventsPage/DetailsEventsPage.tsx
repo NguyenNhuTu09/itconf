@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FiChevronRight, FiCalendar, FiMapPin, FiShoppingCart, FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { EventType, CartItemType } from '../../types/eventTypes';
@@ -20,6 +20,28 @@ const eventsData = [
     imageUrl: 'https://res.cloudinary.com/dozs7ggs4/image/upload/v1762305367/event-8_1_kzu0q8.jpg',
     tags: ['afterparty'],
     price: 50,
+    speakers: [
+      {
+        name: 'Marry Conor',
+        role: 'UI/UX Designer',
+        image: '/images/team-1.jpg'
+      },
+      {
+        name: 'Harry Olson',
+        role: 'Product Manager',
+        image: '/images/team-2.jpg'
+      }
+    ]
+  },
+  {
+    title: 'AFTERPARTY & DINNER',
+    date: 'November 20, 2024 | All Day',
+    location: 'Four Seasons Hotel',
+    address: 'Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB, United Kingdom',
+    description: 'Join us for an exclusive afterparty and dinner event! Enjoy great food, drinks, and networking opportunities with fellow attendees and speakers. This is the perfect way to unwind and celebrate after a day of inspiring talks and workshops.',
+    imageUrl: 'https://res.cloudinary.com/dozs7ggs4/image/upload/v1762305366/event-9_1_glnaa9.jpg',
+    tags: ['afterparty', 'dinner'],
+    price: 80,
     speakers: [
       {
         name: 'Marry Conor',
@@ -126,13 +148,16 @@ const eventsData = [
 const DetailsEventsPage = () => {
   const { id } = useParams();
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [cartItems, setCartItems] = useState<CartItemType[]>(() => {
+    const saved = localStorage.getItem('eventCartItems');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [itemToRemove, setItemToRemove] = useState<CartItemType | null>(null);
 
   // Find the event based on the URL parameter
   const eventDetails = eventsData.find(
-    event => event.title.toLowerCase().replace(/\s+/g, '-') === id
+    event => event.title.toLowerCase().replace(/[\s\/]+/g, '-') === id
   ) || eventsData[0];
 
   const handleBooking = () => {
@@ -177,6 +202,32 @@ const DetailsEventsPage = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  // Reveal on scroll effect
+  useEffect(() => {
+    const revealEls = Array.from(document.querySelectorAll<HTMLElement>('.reveal-on-scroll'));
+    if (revealEls.length === 0) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealEls.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('eventCartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   // Related events data
   const relatedEvents = [
     {
@@ -209,7 +260,7 @@ const DetailsEventsPage = () => {
         <div className="hero-content">
           <h1>{eventDetails.title}</h1>
           <div className="breadcrumb">
-            <Link to="/">home</Link> <FiChevronRight /> <Link to="/events">events</Link> <FiChevronRight /> <span>details</span>
+            <Link to="/" className="breadcrumb-link">HOME</Link> <FiChevronRight /> <Link to="/events" className="breadcrumb-link">EVENTS</Link>
           </div>
         </div>
       </section>
@@ -217,7 +268,7 @@ const DetailsEventsPage = () => {
       <div className="event-details-content">
         <div className="main-content">
           {/* Featured Image - Sử dụng ảnh khác nếu có, hoặc ẩn nếu dùng cùng ảnh hero */}
-          <div className="featured-image-section">
+          <div className="featured-image-section reveal-on-scroll">
             <div className="event-tags-top">
               {eventDetails.tags.map((tag, index) => (
                 <span key={index} className="tag">{tag}</span>
@@ -241,7 +292,7 @@ const DetailsEventsPage = () => {
           <EventSpeakers speakers={eventDetails.speakers} />
 
           {/* Bookings Section */}
-          <div className="bookings-section">
+          <div className="bookings-section reveal-on-scroll">
             <h2>BOOKINGS</h2>
             <div className="bookings-content">
               <p>Booking this event hasn't been easier. Simply click the "booking now" button below.</p>
@@ -265,7 +316,7 @@ const DetailsEventsPage = () => {
             <h2>RELATED EVENTS</h2>
             <div className="related-grid">
               {relatedEvents.map((event, index) => (
-                <div key={index} className="related-card">
+                <div key={index} className="related-card is-visible">
                   <div className="related-image">
                     <div className="related-tags">
                       {event.tags.map((tag, tagIndex) => (
@@ -293,7 +344,7 @@ const DetailsEventsPage = () => {
           </div>
 
           {/* Comments Section */}
-          <div className="comments-section">
+          <div className="comments-section reveal-on-scroll">
             <h2>COMMENTS (02)</h2>
             <div className="comments-content">
               <div className="comment-item">
@@ -344,14 +395,14 @@ const DetailsEventsPage = () => {
 
         {/* Sidebar */}
         <aside className="sidebar">
-          <div className="booking-section">
+          <div className="booking-section reveal-on-scroll">
             <span className="price">${eventDetails.price}</span>
             <button className="booking-button" onClick={handleBooking}>
               booking now
             </button>
           </div>
 
-          <div className="event-info-widget">
+          <div className="event-info-widget reveal-on-scroll">
             <h3>EVENT INFO</h3>
             <div className="info-item">
               <FiCalendar />

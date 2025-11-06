@@ -111,7 +111,7 @@ const EventsPage = () => {
                   <div><FiMapPin size={14} /><span>{event.location}</span></div>
                 </div>
                 <p className="list-item-description">{event.description}</p>
-                <Link to={`/events/${event.title.toLowerCase().replace(/\s+/g, '-')}`} className="list-item-more-info">
+                <Link to={`/events/${event.title.toLowerCase().replace(/[\s\/]+/g, '-')}`} className="list-item-more-info">
                   <FiArrowUpRight /> more info
                 </Link>
               </div>
