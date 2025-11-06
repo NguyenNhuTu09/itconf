@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
+import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
 import './PaymentEventsPage.css';
 
 interface CartItem {
@@ -27,6 +28,7 @@ const PaymentEventsPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [agreedToPolicy, setAgreedToPolicy] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
 
   // Get cart items from localStorage or state management
   const [cartItems] = useState<CartItem[]>(() => {
@@ -68,8 +70,12 @@ const PaymentEventsPage = () => {
     // Clear cart
     localStorage.removeItem('eventCartItems');
     
-    // Navigate to success page or show success message
-    alert('Order placed successfully!');
+    // Show success dialog
+    setShowSuccessDialog(true);
+  };
+
+  const handleSuccessDialogClose = () => {
+    setShowSuccessDialog(false);
     navigate('/');
   };
 
@@ -399,6 +405,15 @@ const PaymentEventsPage = () => {
           </div>
         </form>
       </div>
+
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <SuccessDialog
+          title="Order Placed Successfully!"
+          message="Thank you for your order. Your event tickets have been confirmed and will be sent to your email shortly."
+          onClose={handleSuccessDialogClose}
+        />
+      )}
     </div>
   );
 };
