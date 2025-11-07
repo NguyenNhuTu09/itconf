@@ -1,128 +1,47 @@
-# ITconf - AI Coding Agent Instructions
+## ITconf — Agent Quick Instructions
 
-## Project Overview
-ITconf is an IT conference/event management website built with React 19 + Vite, React Router, and TypeScript/JSX hybrid architecture. Uses Cloudinary for image hosting and react-slick for carousels. Notable: Uses `rolldown-vite` (Vite 7.1.14 fork) instead of standard Vite.
+This repo is a small React (Vite) conference site with a deliberate, simple architecture: a TypeScript/JSX hybrid where data is in-memory and UI is component-scoped.
 
-## Architecture & File Organization
+- Stack & entry points: React 19 + Vite (rolldown-vite fork). App boots from `src/main.jsx` and routing lives in `src/App.jsx`.
+- Key dirs: `src/components/` (component per folder + CSS), `src/Pages/` (page folders), `src/types/` (type defs).
 
-### Mixed Language Strategy
-- **TypeScript (.tsx)**: Complex components with state management, type safety requirements
-  - Examples: `DetailsEventsPage.tsx`, `ShoppingCart.tsx`, `ConfirmDialog.tsx`
-  - Use for: Cart logic, dialog components, data-heavy components
-- **JavaScript (.jsx)**: Simple presentational components
-  - Examples: `Events.jsx`, `Hero.jsx`, `HomePage.jsx`
-  - Use for: Static sections, simple page layouts
+Important conventions (do not change without reason):
 
-### Component Structure Pattern
-Every component follows co-located styling:
-```
-ComponentName/
-  ├── ComponentName.jsx|tsx
-  └── ComponentName.css
-```
-Import CSS directly in component file: `import './ComponentName.css'`
+- Mixed-language rule: use `.tsx` for stateful/complex components (examples: `src/Pages/DetailsEventsPage/DetailsEventsPage.tsx`, `src/components/ShoppingCart/ShoppingCart.tsx`) and `.jsx` for simple presentational pieces (`src/components/Hero/Hero.jsx`, `src/components/Events/Events.jsx`).
+- Styling: each component imports its own CSS file located in the same folder (e.g., `EventInfo/EventInfo.css` alongside `EventInfo.tsx`).
+- Data pattern: there is no backend. Event lists and detailed event objects live as const arrays inside page/component files. When adding an event, update both `src/components/Events/Events.jsx` (list) and `src/Pages/DetailsEventsPage/DetailsEventsPage.tsx` (detailed data).
+- Routing: detail pages use slugified titles for `:id` (`title.toLowerCase().replace(/\s+/g,'-')`). Look at `src/Pages/EventsPage/EventPage.jsx` and `src/Pages/DetailsEventsPage/DetailsEventsPage.tsx` for examples.
 
-### Routing Architecture
-Three-tier page structure in `src/Pages/`:
-- **HomePage**: Section aggregator (Hero → Sponsors → Offer → Events → Stats → Speakers → MainEvents → Topics → Tickets → Testimonials)
-- **EventsPage**: Event listing with search/filter UI, uses hardcoded `eventsListData` array
-- **DetailsEventsPage**: Event details with booking cart, speaker info, location map
+Integration points & external services:
 
-Route params use slugified titles: `/events/:id` where `id` = `title.toLowerCase().replace(/\s+/g, '-')`
+- Images: hosted on Cloudinary (domain `res.cloudinary.com/dozs7ggs4`) — prefer CDN URLs for event images; `public/images/` is only used for a couple of local avatars.
+- Carousels: `react-slick` is used; CSS imports occur in `src/main.jsx`.
 
-## Data Management
+State & cart rules (important):
 
-### In-Memory Data Pattern
-No backend - all data is hardcoded in component files:
-- `EventsPage.jsx`: `eventsListData` array (6 events)
-- `DetailsEventsPage.tsx`: `eventsData` array (2 detailed events)
-- Component files: `eventData`, `sponsorsData`, etc.
+- Cart state is intentionally local — full cart logic lives in `DetailsEventsPage` and the `ShoppingCart` component renders that state. The header only shows a placeholder/empty cart. Do NOT attempt to centralize cart state without a coordinated refactor.
 
-When adding features, maintain this pattern - store data as const arrays within component files.
+Developer workflow & commands (PowerShell on Windows):
 
-### Type Definitions
-Located in `src/types/eventTypes.ts`:
-```typescript
-EventType: title, date, location, description, imageUrl, tags[], price, speakers[]
-CartItemType: EventType & { quantity: number }
-```
-
-## Shopping Cart Implementation
-
-### State Management Pattern
-Cart state lives in two places (NOT shared):
-1. **DetailsEventsPage**: Full cart logic for booking events
-2. **Header**: Empty cart display (placeholder implementation)
-
-When modifying cart:
-- Add items via `handleBooking()` in DetailsEventsPage
-- Update quantities with `handleQuantityChange(title, change)`
-- Remove with confirmation dialog pattern
-- Calculate total with `reduce()` over `price * quantity`
-
-### Modal/Overlay Pattern
-Sliding cart drawer with overlay:
-- Uses `isClosing` state for exit animation (300ms)
-- Overlay click triggers close
-- Portal-style rendering with `React.Fragment`
-
-## Styling Conventions
-
-### CSS Organization
-- **Global**: `src/index.css`, `src/App.css`
-- **Component**: Scoped to component directory
-- **Third-party**: Slick carousel CSS imported in `main.jsx`
-
-### Icon Usage
-All icons from `react-icons/fi` (Feather Icons):
-```jsx
-import { FiSearch, FiCalendar, FiMapPin, FiShoppingCart } from 'react-icons/fi';
-```
-
-### Image Hosting
-All images use Cloudinary CDN URLs (domain: `res.cloudinary.com/dozs7ggs4`). Never use relative paths for event/section images. Only `/images/team-1.jpg`, `/images/team-2.jpg` in `public/images/` for speaker avatars.
-
-## Development Workflow
-
-### Commands
 ```powershell
-npm run dev          # Start dev server (Vite)
-npm run build        # Production build
-npm run preview      # Preview production build
-npm run lint         # ESLint check
+npm run dev    # start dev server (Vite/rolldown-vite)
+npm run build  # production build
+npm run preview# preview production build
+npm run lint   # ESLint
 ```
 
-### ESLint Configuration
-Flat config format (`eslint.config.js`):
-- Ignores `dist/`
-- React Hooks rules enforced
-- Custom rule: `no-unused-vars` with `varsIgnorePattern: '^[A-Z_]'` (allows unused React imports/constants)
+Files to check when changing behavior:
 
-### Adding New Features
-1. **New Page**: Create in `src/Pages/`, add route in `App.jsx`, create folder with `.jsx` + `.css`
-2. **New Component**: Add to `src/components/`, follow folder pattern, import in page
-3. **New Event**: Add to `eventsListData` (EventsPage) AND `eventsData` (DetailsEventsPage)
-4. **State Management**: Keep local - no Redux/Context. Prop drill or duplicate state as needed
+- Routing / pages: `src/App.jsx`, `src/Pages/*` (add route and page folder)
+- Event data and types: `src/Pages/EventsPage/EventPage.jsx`, `src/Pages/DetailsEventsPage/DetailsEventsPage.tsx`, `src/types/eventTypes.ts`
+- Cart UI/logic: `src/components/ShoppingCart/ShoppingCart.tsx`, `src/Pages/DetailsEventsPage/DetailsEventsPage.tsx`
+- Styles: component folder CSS (e.g., `src/components/EventInfo/EventInfo.css`)
+- Lint config: `eslint.config.js` (flat config)
 
-## Key Dependencies
+Quick tips for an AI agent:
 
-- **react-router-dom**: v7.9.5 - Use `<Link>`, `<NavLink>`, `useParams()`
-- **react-slick**: Carousel library, needs CSS imports in `main.jsx`
-- **react-icons**: Feather icon set only (`react-icons/fi`)
+- Keep edits minimal and in the same style (JSX or TSX) as surrounding files.
+- When adding a new event, mirror the in-memory shape used in `DetailsEventsPage` and update the events list to include the slugified link.
+- Run `npm run lint` after changes; fix obvious ESLint issues (project uses standard React rules plus a `varsIgnorePattern` for leading-caps).
 
-## Common Pitfalls
-
-1. **Don't** try to share cart state between Header and DetailsEventsPage - they're independent
-2. **Don't** use TypeScript for simple presentational components - keep it JSX
-3. **Don't** forget to slugify event titles when creating detail page links
-4. **Don't** mix Vite versions - project uses `rolldown-vite@7.1.14` (locked via overrides)
-5. **Always** import component CSS in the same file as the component
-
-## Navigation Implementation
-
-Uses scroll-based header styling:
-- `isScrolled` state toggles `.scrolled` class on scroll > 50px
-- `NavLink` with `isActive` for active route highlighting
-- Mobile menu toggle with `isMenuOpen` state (hamburger icon)
-
-When updating navigation, maintain both `.desktop-nav` and `.mobile-nav` implementations.
+If anything here is unclear or you'd like more examples (e.g., a sample event object, or a short test harness), tell me which part to expand and I'll update this file.

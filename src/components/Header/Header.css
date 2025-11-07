@@ -9,8 +9,9 @@
   align-items: center;
   padding: 30px 60px;
   color: white;
+  background: transparent; /* start transparent */
   box-sizing: border-box;
-  transition: background-color 0.4s ease, padding 0.4s ease; /* 2. Thêm transition */
+  transition: background-color 0.4s ease, padding 0.4s ease, color 0.3s ease; /* smooth color transition */
 }
 .logo-img{
   height: 60px;
@@ -39,7 +40,7 @@
 /* ... các style khác giữ nguyên ... */
 .logo { font-size: 28px; font-weight: 700; text-decoration: none; color: white; }
 .nav-menu { display: flex; gap: 35px; }
-.nav-menu a { color: white; text-decoration: none; font-weight: 600; letter-spacing: 1.5px; font-size: 13px; text-transform: uppercase; }
+.nav-menu a { color: white; text-decoration: none; font-weight: 600; letter-spacing: 1.5px; font-size: 13px; text-transform: uppercase; transition: color 0.2s ease; }
 .header-actions { 
   display: flex; 
   align-items: center; 
@@ -89,6 +90,14 @@
   text-transform: uppercase; 
   letter-spacing: 1px;
   transition: all 0.2s ease;
+}
+
+/* When header becomes scrolled, ensure interactive elements switch color */
+.header-container.scrolled .nav-menu a,
+.header-container.scrolled .header-actions .icon,
+.header-container.scrolled .buy-tickets-btn {
+  color: #1a1a1a;
+  border-color: #1a1a1a;
 }
 
 .nav-menu a.active-link {
