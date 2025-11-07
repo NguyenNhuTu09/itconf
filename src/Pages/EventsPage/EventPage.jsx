@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FiSearch, FiCalendar, FiList, FiGrid, FiChevronRight, FiChevronLeft, FiArrowUpRight, FiMapPin } from 'react-icons/fi';
 import './EventPage.css';
 
@@ -110,9 +111,9 @@ const EventsPage = () => {
                   <div><FiMapPin size={14} /><span>{event.location}</span></div>
                 </div>
                 <p className="list-item-description">{event.description}</p>
-                <a href="#" className="list-item-more-info">
+                <Link to={`/events/${event.title.toLowerCase().replace(/[\s\/]+/g, '-')}`} className="list-item-more-info">
                   <FiArrowUpRight /> more info
-                </a>
+                </Link>
               </div>
             </div>
           ))}

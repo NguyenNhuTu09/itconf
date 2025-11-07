@@ -1,0 +1,245 @@
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 999;
+  transition: background-color 0.3s ease;
+  animation: fadeIn 0.3s forwards;
+}
+
+.cart-overlay.closing {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.shopping-cart {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  z-index: 1000;
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.shopping-cart.closing {
+  animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cart-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+}
+
+.cart-header h3 svg {
+  font-size: 1.5rem;
+  color: #2563eb;
+}
+
+.close-cart {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+.close-cart:hover {
+  background-color: #f3f4f6;
+  color: #1a1a1a;
+}
+
+.cart-items {
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+  margin: 0 -2rem;
+  padding: 0 2rem;
+}
+
+.cart-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.cart-item {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #eee;
+  animation: fadeInSlideUp 0.3s ease;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-item-details h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.cart-item-details p {
+  color: #2563eb;
+  font-weight: bold;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.quantity-controls button {
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quantity-controls button:hover {
+  background-color: #f3f4f6;
+}
+
+.quantity-controls span {
+  min-width: 30px;
+  text-align: center;
+}
+
+.remove-item {
+  color: #ef4444;
+  margin-left: 0.5rem;
+}
+
+.remove-item:hover {
+  background-color: #fee2e2 !important;
+}
+
+.cart-total {
+  margin-top: 2rem;
+  padding: 1.5rem 0;
+  border-top: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  animation: fadeIn 0.3s ease;
+}
+
+.checkout-button {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.checkout-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.checkout-button:hover {
+  background-color: #1d4ed8;
+}
