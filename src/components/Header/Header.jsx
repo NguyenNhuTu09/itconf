@@ -32,7 +32,7 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom'; 
 import { FiSearch, FiShoppingCart, FiMenu, FiX } from 'react-icons/fi'; 
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
@@ -62,8 +62,81 @@ const Header = () => {
     };
   }, []); 
 
+  // --- Cart sync: initialize from localStorage and listen for updates ---
+  useEffect(() => {
+    // initialize
+    try {
+      const saved = localStorage.getItem('eventCartItems');
+      if (saved) setCartItems(JSON.parse(saved));
+    } catch (err) {
+      console.error('Failed to parse eventCartItems from localStorage', err);
+    }
+
+    const onCartUpdated = (e) => {
+      // custom event dispatched in DetailsEventsPage
+      if (e && e.detail) {
+        setCartItems(e.detail);
+        return;
+      }
+      // fallback: read from localStorage
+      try {
+        const saved = localStorage.getItem('eventCartItems');
+        setCartItems(saved ? JSON.parse(saved) : []);
+      } catch (err) {
+        console.error('Failed to parse eventCartItems from localStorage', err);
+      }
+    };
+
+    const onStorage = (ev) => {
+      // storage event for other tabs/windows
+      if (ev.key === 'eventCartItems') {
+        try {
+          setCartItems(ev.newValue ? JSON.parse(ev.newValue) : []);
+        } catch (err) {
+          console.error('Failed to parse eventCartItems from storage event', err);
+        }
+      }
+    };
+
+    window.addEventListener('eventCartUpdated', onCartUpdated);
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      window.removeEventListener('eventCartUpdated', onCartUpdated);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, []);
+
+  const headerRef = useRef(null);
+
+  // Keep CSS variable --header-height in sync with the actual header element height
+  useEffect(() => {
+    const setHeaderHeight = () => {
+      if (headerRef.current) {
+        const h = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${h}px`);
+      }
+    };
+
+    // initial
+    setHeaderHeight();
+
+    // update when window resizes
+    window.addEventListener('resize', setHeaderHeight);
+
+    return () => window.removeEventListener('resize', setHeaderHeight);
+  }, []);
+
+  // update when scrolled class toggles (header height may change)
+  useEffect(() => {
+    if (headerRef.current) {
+      const h = headerRef.current.offsetHeight;
+      document.documentElement.style.setProperty('--header-height', `${h}px`);
+    }
+  }, [isScrolled]);
+
   return (
-    <header className={`header-container ${isScrolled ? 'scrolled' : ''}`}>
+    <header ref={headerRef} className={`header-container ${isScrolled ? 'scrolled' : ''}`}>
       <img src="https://res.cloudinary.com/dozs7ggs4/image/upload/v1762176364/logo-2_o1wxfz.png" className="logo-img"/>
       
       <nav className="nav-menu desktop-nav">

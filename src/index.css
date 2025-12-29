@@ -10,3 +10,42 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* CSS variables and focus styles for better consistency and accessibility */
+:root {
+  --primary: #1147e1;
+  --accent: #c9a961;
+  --body-bg: #ffffff;
+  --header-height: 72px; /* used by sticky containers */
+  --space-lg: 4rem;
+  /* Typography scale */
+  --fs-xs: 0.8125rem;   /* 13px */
+  --fs-sm: 0.9375rem;   /* 15px */
+  --fs-md: 1rem;        /* 16px */
+  --fs-lg: 1.125rem;    /* 18px */
+  --fs-xl: 1.25rem;     /* 20px */
+  --fs-2xl: 1.5rem;     /* 24px */
+  --fs-3xl: 1.75rem;    /* 28px */
+  --fs-4xl: 2rem;       /* 32px */
+  --fs-5xl: 2.5rem;     /* 40px */
+  --fs-6xl: 3.5rem;     /* 56px */
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.35;
+  --lh-normal: 1.6;
+  --lh-loose: 1.8;
+}
+
+body {
+  background-color: var(--body-bg);
+}
+
+/* Visible focus for keyboard users */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(17, 71, 225, 0.18);
+  outline-offset: 2px;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { FiChevronRight, FiCalendar, FiMapPin, FiShoppingCart, FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { FiChevronRight, FiCalendar, FiMapPin, FiShoppingCart, FiMinus, FiPlus, FiTrash2, FiArrowUpRight } from 'react-icons/fi';
+import { FaTwitter, FaFacebookF, FaPinterestP, FaLinkedinIn } from 'react-icons/fa';
 import { EventType, CartItemType } from '../../types/eventTypes';
 import ShoppingCart from '../../components/ShoppingCart/ShoppingCart';
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
@@ -226,6 +227,12 @@ const DetailsEventsPage = () => {
   // Save cart to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('eventCartItems', JSON.stringify(cartItems));
+    // Notify other components in the same window (storage event won't fire in the same window)
+    try {
+      window.dispatchEvent(new CustomEvent('eventCartUpdated', { detail: cartItems }));
+    } catch (e) {
+      // ignore if CustomEvent isn't supported for some environment
+    }
   }, [cartItems]);
 
   // Related events data
@@ -245,7 +252,7 @@ const DetailsEventsPage = () => {
       tags: ['conference', 'presentation']
     },
     {
-      title: 'THE POTENTIAL OF AI',
+      title: 'AI SOLUTIONS ',
       slug: 'the-potential-of-ai',
       imageUrl: 'https://res.cloudinary.com/dozs7ggs4/image/upload/v1762305364/event-3_1_cyr9a7.jpg',
       price: 0,
@@ -267,20 +274,53 @@ const DetailsEventsPage = () => {
 
       <div className="event-details-content">
         <div className="main-content">
-          {/* Featured Image - Sử dụng ảnh khác nếu có, hoặc ẩn nếu dùng cùng ảnh hero */}
+          {/* Featured Image Section - Full Width */}
           <div className="featured-image-section reveal-on-scroll">
             <div className="event-tags-top">
               {eventDetails.tags.map((tag, index) => (
                 <span key={index} className="tag">{tag}</span>
               ))}
             </div>
-            <img src={eventDetails.imageUrl} alt={eventDetails.title} className="featured-image" />
+            <div className="featured-image-container">
+              <img src={eventDetails.imageUrl} alt={eventDetails.title} className="featured-image" />
+            </div>
           </div>
 
-          {/* Event Info Component */}
-          <EventInfo event={eventDetails} />
+          {/* Event Info Box - Below Image */}
+          <div className="event-info-box reveal-on-scroll">
+            <div className="event-info-grid">
+              <div className="event-title-section">
+                <h1 className="event-detail-title">{eventDetails.title}</h1>
+              </div>
+              
+              <div className="event-meta-section">
+                <div className="meta-item">
+                  <FiCalendar className="meta-icon" />
+                  <div>
+                    <strong>Date & Time:</strong>
+                    <p>November 20, 2024</p>
+                    <p>All Day</p>
+                  </div>
+                </div>
 
-          {/* Map Location Component */}
+                <div className="meta-item">
+                  <FiMapPin className="meta-icon" />
+                  <div>
+                    <strong>Location:</strong>
+                    <p>{eventDetails.location}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="event-booking-section">
+                <button className="booking-button" onClick={handleBooking}>
+                  <FiShoppingCart /> booking now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Map Location Component - moved up */}
           <EventLocation
             title="London Eye"
             address="Riverside Building, County Hall, Westminster Bridge Rd, London SE1 7PB, United Kingdom"
@@ -288,58 +328,68 @@ const DetailsEventsPage = () => {
             reviews={1943}
           />
 
+          {/* Event Info Component (description section) */}
+          <EventInfo event={eventDetails} />
+
           {/* Speakers Component */}
           <EventSpeakers speakers={eventDetails.speakers} />
 
           {/* Bookings Section */}
           <div className="bookings-section reveal-on-scroll">
             <h2>BOOKINGS</h2>
-            <div className="bookings-content">
-              <p>Booking this event hasn't been easier. Simply click the "booking now" button below.</p>
-              
+            <p>Bookings are closed for this event.</p>
+            
+            <div className="booking-tags-and-share">
               <div className="booking-tags">
                 <span className="booking-tag">conference</span>
-                <span className="booking-tag">event</span>
+                <span className="booking-tag">expo</span>
                 <span className="booking-tag">meeting</span>
               </div>
 
               <div className="share-buttons">
-                <button className="share-btn"><FiCalendar /></button>
-                <button className="share-btn"><FiMapPin /></button>
-                <button className="share-btn"><FiShoppingCart /></button>
+                <a href="#" className="share-btn" aria-label="Share on Twitter"><FaTwitter /></a>
+                <a href="#" className="share-btn" aria-label="Share on Facebook"><FaFacebookF /></a>
+                <a href="#" className="share-btn" aria-label="Share on Pinterest"><FaPinterestP /></a>
+                <a href="#" className="share-btn" aria-label="Share on LinkedIn"><FaLinkedinIn /></a>
               </div>
             </div>
           </div>
 
           {/* Related Events */}
-          <div className="related-events">
-            <h2>RELATED EVENTS</h2>
-            <div className="related-grid">
-              {relatedEvents.map((event, index) => (
-                <div key={index} className="related-card is-visible">
-                  <div className="related-image">
-                    <div className="related-tags">
-                      {event.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex}>{tag}</span>
-                      ))}
+          <div className="related-events reveal-on-scroll">
+            <div className="related-two-col">
+              <div className="related-heading">
+                <h2 className="section-title">RELATED EVENTS</h2>
+              </div>
+              <div className="related-content">
+                <div className="related-grid">
+                  {relatedEvents.map((event, index) => (
+                    <div key={index} className="related-card">
+                      <div className="related-image">
+                        <div className="related-tags">
+                          {event.tags.map((tag, tagIndex) => (
+                            <span key={tagIndex}>{tag}</span>
+                          ))}
+                        </div>
+                        <img src={event.imageUrl} alt={event.title} />
+                      </div>
+                      <div className="related-body">
+                        <h3 className="related-title">{event.title}</h3>
+                        <div className="related-price">${event.price.toFixed(2)}</div>
+                        <div className="related-meta">
+                          <span><FiCalendar size={14} /> November 20, 2024 | All Day</span>
+                        </div>
+                        <div className="related-meta">
+                          <span><FiMapPin size={14} /> Four Seasons Hotel</span>
+                        </div>
+                        <Link to={`/events/${event.slug}`} className="related-link">
+                          <FiArrowUpRight className="related-link-icon" /> more info
+                        </Link>
+                      </div>
                     </div>
-                    <img src={event.imageUrl} alt={event.title} />
-                  </div>
-                  <div className="related-body">
-                    <h3 className="related-title">{event.title}</h3>
-                    <div className="related-price">${event.price.toFixed(2)}</div>
-                    <div className="related-meta">
-                      <span><FiCalendar size={14} /> November 20, 2024 | All Day</span>
-                    </div>
-                    <div className="related-meta">
-                      <span><FiMapPin size={14} /> Four Seasons Hotel</span>
-                    </div>
-                    <Link to={`/events/${event.slug}`} className="related-btn">
-                      VIEW INFO
-                    </Link>
-                  </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 
@@ -387,39 +437,13 @@ const DetailsEventsPage = () => {
                   <input type="checkbox" id="save-info" />
                   <label htmlFor="save-info">Save my name, email, and website in this browser for the next time I comment.</label>
                 </div>
-                <button type="submit" className="submit-comment">POST COMMENT</button>
+                <button type="submit" className="submit-comment">post comment</button>
               </form>
             </div>
           </div>
         </div>
 
-        {/* Sidebar */}
-        <aside className="sidebar">
-          <div className="booking-section reveal-on-scroll">
-            <span className="price">${eventDetails.price}</span>
-            <button className="booking-button" onClick={handleBooking}>
-              booking now
-            </button>
-          </div>
-
-          <div className="event-info-widget reveal-on-scroll">
-            <h3>EVENT INFO</h3>
-            <div className="info-item">
-              <FiCalendar />
-              <div>
-                <strong>Date & Time</strong>
-                <p>{eventDetails.date}</p>
-              </div>
-            </div>
-            <div className="info-item">
-              <FiMapPin />
-              <div>
-                <strong>Location</strong>
-                <p>{eventDetails.location}</p>
-              </div>
-            </div>
-          </div>
-        </aside>
+        {/* Remove old sidebar - now integrated into featured section */}
       </div>
 
       {showCart && (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiCalendar, FiMapPin } from 'react-icons/fi';
 import { EventType } from '../../types/eventTypes';
 import './EventInfo.css';
 
@@ -9,32 +8,20 @@ interface EventInfoProps {
 
 const EventInfo: React.FC<EventInfoProps> = ({ event }) => {
   return (
-    <div className="event-info-section">
-      {/* Event Title */}
-      <h1 className="event-page-title">{event.title}</h1>
-
-      {/* Event Meta Info */}
-      <div className="event-page-meta">
-        <div className="meta-item">
-          <FiCalendar />
-          <span>{event.date}</span>
+    <div className="event-info-section reveal-on-scroll">
+      {/* Event Description - two-column: heading left, content right */}
+      <div className="two-col-section event-page-description">
+        <div className="two-col-heading-right">
+          <h2>EVENT DESCRIPTION</h2>
         </div>
-        <div className="meta-item">
-          <FiMapPin />
-          <span>{event.location}</span>
-        </div>
-      </div>
 
-      {/* Event Description */}
-      <div className="event-page-description">
-        <h2>EVENT DESCRIPTION</h2>
-        <div className="description-content">
+        <div className="two-col-content description-content">
           <p>{event.description}</p>
-          
+
           <p>In the realm of design, AI has the ability to assist designers in creating more user-friendly and intuitive interfaces. By analyzing user data and behavior patterns, AI algorithms can identify areas where the user experience can be improved and suggest design changes accordingly.</p>
-          
+
           <p>In addition to design, AI can also revolutionize the development process by providing developers with tools that automate many of the repetitive tasks involved in coding. This can help to speed up the development process and free up developers to focus on more complex problems.</p>
-          
+
           <h3>How AI can help the UI/UX process</h3>
           <ul>
             <li>AI can help the UI/UX process by automating many of the repetitive tasks involved in design, such as color palette generation, typography selection, and layout optimization.</li>

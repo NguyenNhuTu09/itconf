@@ -11,10 +11,15 @@ interface EventSpeakersProps {
 const EventSpeakers: React.FC<EventSpeakersProps> = ({ speakers }) => {
   return (
     <div className="event-speakers event-speakers-container">
-      <h2 className="section-title">SPEAKERS</h2>
-      <div className="speakers-grid">
-        {speakers.map((speaker, index) => (
-          <article key={index} className="speaker-card">
+      <div className="two-col-section speakers-two-col">
+        <div className="two-col-heading-right speakers-heading">
+          <h2 className="section-title">SPEAKERS</h2>
+        </div>
+
+        <div className="two-col-content">
+          <div className="speakers-grid">
+            {speakers.map((speaker, index) => (
+              <article key={index} className="speaker-card">
             <div className="speaker-inner">
               <div
                 className="speaker-background"
@@ -45,7 +50,9 @@ const EventSpeakers: React.FC<EventSpeakersProps> = ({ speakers }) => {
 
             <a className="speaker-link" href="#" aria-label={`View ${speaker.name}`} />
           </article>
-        ))}
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

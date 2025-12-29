@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
 import './PaymentEventsPage.css';
@@ -101,7 +101,7 @@ const PaymentEventsPage = () => {
         <div className="payment-hero-content">
           <h1>PAYMENT</h1>
           <div className="breadcrumb">
-            <span>home</span> <FiChevronRight /> <span>checkout</span>
+            <Link to="/" className="breadcrumb-link">HOME</Link> <FiChevronRight /> <span>checkout</span>
           </div>
         </div>
       </section>

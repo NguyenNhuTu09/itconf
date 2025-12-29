@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { FiSearch, FiCalendar, FiList, FiGrid, FiChevronRight, FiChevronLeft, FiArrowUpRight, FiMapPin } from 'react-icons/fi';
 import './EventPage.css';
 
-const heroImageUrl = 'https://res.cloudinary.com/dozs7ggs4/image/upload/v1762305365/pt-events_psqr6i.jpg';
-
 // Dữ liệu cho danh sách sự kiện
 const eventsListData = [
   {
@@ -111,7 +109,7 @@ const EventsPage = () => {
                   <div><FiMapPin size={14} /><span>{event.location}</span></div>
                 </div>
                 <p className="list-item-description">{event.description}</p>
-                <Link to={`/events/${event.title.toLowerCase().replace(/[\s\/]+/g, '-')}`} className="list-item-more-info">
+                <Link to={`/events/${event.title.toLowerCase().replace(/[\s/]+/g, '-')}`} className="list-item-more-info">
                   <FiArrowUpRight /> more info
                 </Link>
               </div>
